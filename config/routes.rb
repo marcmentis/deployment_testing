@@ -1,4 +1,6 @@
 Startup4002::Application.routes.draw do
+  resources :for_selects
+
   get "static_pages/home"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
