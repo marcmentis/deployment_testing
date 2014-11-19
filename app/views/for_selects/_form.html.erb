@@ -11,31 +11,38 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
+<div class="row">
+  <div class="large-3 columns">
+    <div class="field">
+      <%= f.label :code %><br>
+      <%= f.text_field :code %>
+    </div>
+    <div class="field">
+      <%= f.label :value %><br>
+      <%= f.text_field :value %>
+    </div>
+    <div class="field">
+      <%= f.label :text %><br>
+      <%= f.text_field :text %>
+    </div>
+    <div class="field">
+      <%= f.label :grouper %><br>
+      <%= f.text_field :grouper %>
+    </div>
+    <div class="field">
+      <%= f.label :option_order %><br>
+      <%= f.number_field :option_order %>
+    </div>
+    <div class="field">
+      <%= f.label :facility %><br>
+      <%= f.text_field :facility %>
+      <%#= f.select(:facility, grouped_options_for_select(@grouped_options), prompt: 'Choose Facility') %>
+      <%= select_tag(:facility_select, grouped_options_for_select(@grouped_options), prompt: 'Choose Facility') %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :value %><br>
-    <%= f.text_field :value %>
-  </div>
-  <div class="field">
-    <%= f.label :text %><br>
-    <%= f.text_field :text %>
-  </div>
-  <div class="field">
-    <%= f.label :grouper %><br>
-    <%= f.text_field :grouper %>
-  </div>
-  <div class="field">
-    <%= f.label :option_order %><br>
-    <%= f.number_field :option_order %>
-  </div>
-  <div class="field">
-    <%= f.label :facility %><br>
-    <%= f.text_field :facility %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+
 <% end %>

@@ -12,9 +12,9 @@ GIT
 
 GIT
   remote: git@github.com:marcmentis/grouped_options.git
-  revision: 48dac238a2d81c2cacb21c92e57c481dbda042ce
+  revision: 9ae5c6e442ba107ee4c07cbde98c38a5830c49f2
   specs:
-    grouped_options (0.0.1)
+    grouped_options (0.0.2)
 
 GEM
   remote: https://rubygems.org/
