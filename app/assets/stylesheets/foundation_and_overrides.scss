@@ -21,6 +21,9 @@
 // If you want your base font-size to be different and not have it affect the grid breakpoints,
 // set $rem-base to $base-font-size and make sure $base-font-size is a px value.
 // $base-font-size: 100%;
+			 // $base-font-size: 14px;
+			 // $rem-base: $base-font-size;
+
 
 // The $base-font-size is 100% while $base-line-height is 150%
 // $base-line-height: 150%;
@@ -60,7 +63,7 @@
 // $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
+			$primary-color: #008CBA;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -225,6 +228,7 @@
 // We use these to control full name font styles
 // $microformat-fullname-font-weight: $font-weight-bold;
 // $microformat-fullname-font-size: rem-calc(15);
+		// $microformat-fullname-font-size: rem-calc(12);
 
 // We use this to control the summary font styles
 // $microformat-summary-font-weight: $font-weight-bold;
@@ -267,7 +271,7 @@
 // $alert-font-color: #fff;
 // $alert-font-color-alt: scale-color($secondary-color, $lightness: -66%);
 
-// We use this for close hover effect.
+// We use this for close hover effect.bu
 // $alert-function-factor: -14%;
 
 // We use these to control border styles.
@@ -351,6 +355,7 @@
 // We use this to control the display property.
 // $button-display: inline-block;
 // $button-margin-bottom: rem-calc(20);
+     	$button-margin-bottom: rem-calc(2);
 
 // We use these to control button text styles.
 // $button-font-family: $body-font-family;
@@ -517,10 +522,12 @@
 
 // We use this to set the base for lots of form spacing and positioning styles
 // $form-spacing: rem-calc(16);
+			$form-spacing: rem-calc(10);
 
 // We use these to style the labels in different ways
 // $form-label-pointer: pointer;
 // $form-label-font-size: rem-calc(14);
+			$form-label-font-size: rem-calc(12);
 // $form-label-font-weight: $font-weight-normal;
 // $form-label-line-height: 1.5;
 // $form-label-font-color: scale-color(#000, $lightness: 30%);
@@ -529,6 +536,7 @@
 // $input-font-family: inherit;
 // $input-font-color: rgba(0,0,0,0.75);
 // $input-font-size: rem-calc(14);
+			$input-font-size: rem-calc(12);
 // $input-bg-color: #fff;
 // $input-focus-bg-color: scale-color(#fff, $lightness: -2%);
 // $input-border-color: scale-color(#fff, $lightness: -20%);
@@ -545,6 +553,7 @@
 // $fieldset-border-width: 1px;
 // $fieldset-border-color: #ddd;
 // $fieldset-padding: rem-calc(20);
+				// $fieldset-padding: rem-calc(5);
 // $fieldset-margin: rem-calc(18 0);
 
 // We use these to style the legends when you use them
@@ -821,15 +830,15 @@
 // $panel-bg: scale-color(#fff, $lightness: -5%);
 // $panel-border-style: solid;
 // $panel-border-size: 1px;
-
 // We use this % to control how much we darken things on hover
 // $panel-function-factor: -11%;
 // $panel-border-color: scale-color($panel-bg, $lightness: $panel-function-factor);
 
 // We use these to set default inner padding and bottom margin
 // $panel-margin-bottom: rem-calc(20);
+		$panel-margin-bottom: rem-calc(10);
 // $panel-padding: rem-calc(20);
-
+		$panel-padding: rem-calc(10);
 // We use these to set default font colors
 // $panel-font-color: #333;
 // $panel-font-color-alt: #fff;
@@ -1091,6 +1100,8 @@
 // These control the background color for the table and even rows
 // $table-bg: #fff;
 // $table-even-row-bg: #f9f9f9  ;
+				$table-even-row-bg: #e5f9ff;
+
 
 // These control the table cell border style
 // $table-border-style: solid;
@@ -1099,20 +1110,26 @@
 
 // These control the table head styles
 // $table-head-bg: #f5f5f5  ;
-// $table-head-font-size: rem-calc(14);
+// $table-head-font-size: rem-calc(16);
+		$table-head-font-size: rem-calc(14);
 // $table-head-font-color: #222;
 // $table-head-font-weight: $font-weight-bold;
 // $table-head-padding: rem-calc(8 10 10);
+		$table-head-padding: rem-calc(4 6 6);
 
 // These control the row padding and font styles
 // $table-row-padding: rem-calc(9 10);
+		$table-row-padding: rem-calc(3 4);
 // $table-row-font-size: rem-calc(14);
+		$table-row-font-size: rem-calc(12);
 // $table-row-font-color: #222;
 // $table-line-height: rem-calc(18);
+		$table-line-height: rem-calc(16);
 
 // These are for controlling the display and margin of tables
 // $table-display: table-cell;
 // $table-margin-bottom: rem-calc(20);
+		$table-margin-bottom: rem-calc(18);
 
 //
 // TABS
@@ -1186,9 +1203,8 @@
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-// $topbar-bg-color: #333;
 // $topbar-bg: $topbar-bg-color;
-
+				 //$topbar-bg-color: #0c3247;
 // Height and margin
 // $topbar-height: 45px;
 // $topbar-margin-bottom: 0;

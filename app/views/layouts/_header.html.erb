@@ -17,13 +17,18 @@
       <ul class="right">
         <li><a href="#">Rt Item 1</a></li>
         <li><a href="#">Rt Item 2</a></li>
-        <li><a href="#">Rt Item 3</a></li>
         <li class="has-dropdown">
-          <a href="#">Rt Item 4</a>
+          <a href="#">Builders</a>
           <ul class="dropdown">
-            <li><a href="#">Drop 1</a></li>
-            <li><a href="#">Drop 2</a></li>
-            <li><a href="#">Drop 3</a></li>
+            <li><%= link_to("For Select", for_selects_path) %></li>
+            <li class="has-dropdown">
+              <a href="#">Nested Drop</a>
+              <ul class="dropdown">
+                <li><a href="#">Nested 1</a></li>
+                <li><a href="#">Nested 2</a></li>
+                <li><a href="#">Nested 3</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
