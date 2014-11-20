@@ -7,7 +7,7 @@
       <% @for_select.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
-      </ul>
+      </ul> 
     </div>
   <% end %>
 
@@ -37,7 +37,7 @@
       <%= f.label :facility %><br>
       <%= f.text_field :facility %>
       <%#= f.select(:facility, grouped_options_for_select(@grouped_options), prompt: 'Choose Facility') %>
-      <%= select_tag(:facility_select, grouped_options_for_select(@grouped_options), prompt: 'Choose Facility') %>
+      <%= select_tag(:sFor_select_facility, grouped_options_for_select(@grouped_options), prompt: 'Choose Facility') %>
     </div>
     <div class="actions">
       <%= f.submit %>
