@@ -16,13 +16,13 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     # Generate the 2d array needed for grouped select in view
-      @grouped_options = ForSelect.GroupedSelect('all','facility', ForSelect)
+      @grouped_options = ForSelect.GroupedSelect('9999','facility', ForSelect)
   end
 
   # GET /users/1/edit
   def edit
     # Generate the 2d array needed for grouped select in view
-      @grouped_options = ForSelect.GroupedSelect('all','facility', ForSelect)
+      @grouped_options = ForSelect.GroupedSelect('9999','facility', ForSelect)
   end
 
   # POST /users
