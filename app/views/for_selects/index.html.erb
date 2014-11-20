@@ -24,9 +24,9 @@
         <td><%= for_select.grouper %></td>
         <td><%= for_select.option_order %></td>
         <td><%= for_select.facility %></td>
-        <td><%= link_to 'Show', for_select %></td>
-        <td><%= link_to 'Edit', edit_for_select_path(for_select) %></td>
-        <td><%= link_to 'Destroy', for_select, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', for_select if policy(for_select).show? %></td>
+        <td><%= link_to 'Edit', edit_for_select_path(for_select) if policy(for_select).edit? %></td>
+        <td><%= link_to 'Destroy', for_select, method: :delete, data: { confirm: 'Are you sure?' } if policy(for_select).destroy? %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New For select', new_for_select_path %>
+<%= link_to 'New For select', new_for_select_path if policy(ForSelect).new? %>

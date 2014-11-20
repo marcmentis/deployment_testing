@@ -1,10 +1,12 @@
 class ForSelectsController < ApplicationController
   before_action :set_for_select, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /for_selects
   # GET /for_selects.json
   def index
     @for_selects = ForSelect.all
+    authorize @for_selects
   end
 
   # GET /for_selects/1
@@ -15,7 +17,7 @@ class ForSelectsController < ApplicationController
   # GET /for_selects/new
   def new
     @for_select = ForSelect.new
-
+    authorize @for_select
     # Generate the 2d array needed for grouped select in view
       @grouped_options = ForSelect.GroupedSelect('9999','facility', ForSelect)
  
@@ -31,7 +33,7 @@ class ForSelectsController < ApplicationController
   # POST /for_selects.json
   def create
     @for_select = ForSelect.new(for_select_params)
-
+    authorize @for_select
     respond_to do |format|
       if @for_select.save
         format.html { redirect_to @for_select, notice: 'For select was successfully created.' }
@@ -71,6 +73,7 @@ class ForSelectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_for_select
       @for_select = ForSelect.find(params[:id])
+      authorize @for_select
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

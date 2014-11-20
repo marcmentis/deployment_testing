@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @for_select %> |
-<%= link_to 'Back', for_selects_path %>
+<%= link_to 'Show', @for_select if policy(ForSelect).show? %> |
+<%= link_to 'Back', for_selects_path if policy(ForSelect).index? %>
