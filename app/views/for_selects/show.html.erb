@@ -30,5 +30,5 @@
   <%= @for_select.facility %>
 </p>
 
-<%= link_to 'Edit', edit_for_select_path(@for_select) %> |
+<%= link_to 'Edit', edit_for_select_path(@for_select) if policy(ForSelect).edit? %> |
 <%= link_to 'Back', for_selects_path %>

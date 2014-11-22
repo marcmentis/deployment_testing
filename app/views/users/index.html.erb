@@ -103,9 +103,9 @@
                   <td><%= user.firstinitial %></td>
                   <td><%= user.middleinitial %></td>
                   <td><%= user.updated_by %></td>
-                  <td><%= link_to 'Show', user %></td>
-                  <td><%= link_to 'Edit', edit_user_path(user) %></td>
-                  <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to 'Show', user if policy(user).show? %></td>
+                  <td><%= link_to 'Edit', edit_user_path(user) if policy(user).edit? %></td>
+                  <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } if policy(user).destroy? %></td>
                 </tr>
               <% end %>
               <tr>
@@ -131,5 +131,5 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path, class: "button tiny radius" %>
+<%= link_to 'New User', new_user_path, class: "button tiny radius" if policy(User).new? %>
 

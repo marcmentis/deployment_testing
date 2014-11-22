@@ -45,5 +45,5 @@
   <%= @user.updated_by %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Edit', edit_user_path(@user) if policy(User).edit? %> |
 <%= link_to 'Back', users_path %>

@@ -21,8 +21,8 @@
           <a href="#">Builders</a>
           <ul class="dropdown">
             <li><%= link_to("Home", static_pages_home_path) %></li>
-            <li><%= link_to("For Select", for_selects_path) %></li>
-            <li><%= link_to("Users", users_path) %></li>
+            <li><%= link_to("For Select", for_selects_path) if policy(ForSelect).index? %></li>
+            <li><%= link_to("Users", users_path) if policy(User).index? %></li>
             <li class="has-dropdown">
               <a href="#">Nested Drop</a>
               <ul class="dropdown">

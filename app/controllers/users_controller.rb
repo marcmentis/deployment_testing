@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
 
   # GET /users
   # GET /users.json
@@ -10,6 +11,8 @@ class UsersController < ApplicationController
 
     @totNumber = User.all.count
     @searchNumber = @q.result.count
+
+    authorize @users
   end
 
   # GET /users/1

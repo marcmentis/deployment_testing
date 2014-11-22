@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include Pundit
   # Expose the 'current_user' method to all applicatins/views
-			  	include ApplicationHelper
-			  		helper_method :current_user
+  	include ApplicationHelper
+  		helper_method :current_user
 end
