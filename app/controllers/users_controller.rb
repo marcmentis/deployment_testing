@@ -4,7 +4,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    # @users = User.all
+    @q = User.search(params[:q])
+    @users = @q.result.page(params[:page]).per(15)
+
+    @totNumber = User.all.count
+    @searchNumber = @q.result.count
   end
 
   # GET /users/1

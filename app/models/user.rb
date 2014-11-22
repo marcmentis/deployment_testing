@@ -21,16 +21,16 @@ class User < ActiveRecord::Base
 		role == "psych1"
 	end
 
-	def med1?
-		role == "med1"
-	end
-
 	def psych2?
 		role == "psych1"
 	end
 
-	def med2?
+	def med1?
 		role == "med1"
+	end
+
+	def med2?
+		role == "med2"
 	end
 
 	def teamleader?

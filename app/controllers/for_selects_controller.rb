@@ -5,7 +5,15 @@ class ForSelectsController < ApplicationController
   # GET /for_selects
   # GET /for_selects.json
   def index
-    @for_selects = ForSelect.all
+    # byebug
+    # @for_selects = ForSelect.all
+    @q = ForSelect.search(params[:q])
+    @for_selects = @q.result.page(params[:page]).per(15)
+
+    @totNumber = ForSelect.all.count
+    @searchNumber = @q.result.count
+
+
     authorize @for_selects
   end
 
