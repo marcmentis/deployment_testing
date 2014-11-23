@@ -23,6 +23,8 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    authorize @user
+
     # Generate the 2d array needed for grouped select in view
       @grouped_options = ForSelect.GroupedSelect('9999','facility', ForSelect)
   end
@@ -37,6 +39,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    authorize @user
 
     respond_to do |format|
       if @user.save
@@ -77,6 +80,7 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+      authorize @user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
