@@ -1,0 +1,61 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="large-3 columns panel radius">
+      <div class="panel callout radius">
+        <div>
+          <%= f.label :firstname %>
+          <%= f.text_field :firstname %>
+        </div>
+        <div>
+          <%= f.label :lastname %>
+          <%= f.text_field :lastname %>
+        </div>
+        <div>
+          <%= f.label :authen %>
+          <%= f.text_field :authen %>
+        </div>
+        <div>
+          <%= f.label :facility %>
+          <%= f.text_field :facility %>
+
+          <%#= f.select(:facility, grouped_options_for_select(@grouped_options), prompt: 'Choose Facility') %>
+          <%= select_tag(:sFacility, grouped_options_for_select(@grouped_options), prompt: 'Choose Facility') %>
+        </div>
+        <div>
+          <%= f.label :role %>
+          <%= f.text_field :role %>
+        </div>
+        <div>
+          <%= f.label :email %>
+          <%= f.text_field :email %>
+        </div>
+        <div>
+          <%= f.label :firstinitial %>
+          <%= f.text_field :firstinitial %>
+        </div>
+        <div>
+          <%= f.label :middleinitial %>
+          <%= f.text_field :middleinitial %>
+        </div>
+        <div>
+          <%= f.label :updated_by %>
+          <%= f.text_field :updated_by %>
+        </div>
+        <div >
+          <%= f.submit class: "button tiny radius" %>
+        </div> 
+      </div>
+    </div>
+  </div>
+<% end %>

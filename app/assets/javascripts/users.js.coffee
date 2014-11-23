@@ -6,10 +6,10 @@ $(document).on "ready", ->
   # alert 'when does this go on'
 
   # Get facility Value to pass to Facility select
-  facValue = $('#for_select_facility').val()
-  $('#sFor_select_facility').val(facValue)
+  facValue = $('#user_facility').val()
+  $('#sFacility').val(facValue)
 
   # Pass Facility select value to hidden facility text when it changes
-  $('#sFor_select_facility').change ->
+  $('#sFacility').change ->
     newFacValue = $(this).val()
-    $('#for_select_facility').val(newFacValue)
+    $('#user_facility').val(newFacValue)

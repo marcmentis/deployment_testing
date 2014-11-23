@@ -1,0 +1,135 @@
+<div class="row">
+  <div class="large-5 columns large-centered alignCenterNoPadding">
+      <h3>Listing Users</h3>
+  </div>
+
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <div class="panel radius">
+      <div class="panel callout radius">
+        <%= search_form_for @q, id: 'fUser_filter' do |f| %>
+        <div class="row collapse">
+          <div class="hide">
+            <div class="small-2 columns">
+              <%= f.submit class: 'button tiny radius' %>
+            </div>
+          </div>
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-1 columns">
+                <%= f.label(:firstname_start, 'First:', class: "right inline") %>
+              </div>
+              <div class="small-2 columns end">
+                <%= f.search_field :firstname_start %>
+              </div>
+
+              <div class="small-1 columns">
+                <%= f.label(:lastname_start, 'Last:', class: "right inline") %>
+              </div>
+              <div class="small-2 columns end">
+                <%= f.search_field :lastname_start %>
+              </div>
+
+              <div class="small-1 columns">
+                <%= f.label(:authen_start, 'UserID:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :authen_start %>
+              </div> 
+              <div class="small-1 columns">
+                <%= f.label(:updated_by_start, 'Enter:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :updated_by_start %>
+              </div>   
+            </div> 
+
+            <div class="row collapse">
+              <div class="small-1 columns">
+                <%= f.label(:facility_eq, 'Facility:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :facility_eq %>
+              </div>
+              <div class="small-1 columns">
+                <%= f.label(:role_start, 'Role:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :role_start %>
+              </div> 
+
+              <div class="small-1 columns">
+                <%= f.label(:email_start, 'eMail:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns end">
+                <%= f.search_field :email_start %>
+              </div> 
+            </div>           
+          </div>
+        </div>         
+        <% end %>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns ">
+          <table>
+            <thead>
+              <tr class="tableHeader">
+                <th><%= sort_link(@q, :firstname, "FirstName") %></th>
+                <th><%= sort_link(@q, :lastname, "LastName") %></th>
+                <th><%= sort_link(@q, :authen, "UserID") %></th>
+                <th><%= sort_link(@q, :facility, "Facility") %></th>
+                <th><%= sort_link(@q, :role, "Role") %></th>
+                <th><%= sort_link(@q, :eMail, "eMail") %></th>
+                <th><%= sort_link(@q, :firstinitial, "FirstInit") %></th>
+                <th><%= sort_link(@q, :middleinitial, "MiddInit") %></th>
+                <th><%= sort_link(@q, :updated_by, "Enter") %></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.firstname %></td>
+                  <td><%= user.lastname %></td>
+                  <td><%= user.authen %></td>
+                  <td><%= user.facility %></td>
+                  <td><%= user.role %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.firstinitial %></td>
+                  <td><%= user.middleinitial %></td>
+                  <td><%= user.updated_by %></td>
+                  <td><%= link_to 'Show', user if policy(user).show? %></td>
+                  <td><%= link_to 'Edit', edit_user_path(user) if policy(user).edit? %></td>
+                  <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } if policy(user).destroy? %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td colspan="8" class="tableFooter">
+                  <%= paginate @users %>
+                </td>
+                <td colspan="4" class="tableFooter">
+                  <%= @searchNumber %> from <%= @totNumber %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+
+
+    </div>
+    
+  </div>
+</div>
+
+
+<br>
+
+<%= link_to 'New User', new_user_path, class: "button tiny radius" if policy(User).new? %>
+

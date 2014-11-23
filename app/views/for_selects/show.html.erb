@@ -1,34 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Code:</strong>
-  <%= @for_select.code %>
-</p>
+<div class="row">
+  <div class="large-3 columns panel radius">
+    <div class="panel callout radius">
+      <p>
+        <strong>Code:</strong>
+        <%= @for_select.code %>
+      </p>
 
-<p>
-  <strong>Value:</strong>
-  <%= @for_select.value %>
-</p>
+      <p>
+        <strong>Value:</strong>
+        <%= @for_select.value %>
+      </p>
 
-<p>
-  <strong>Text:</strong>
-  <%= @for_select.text %>
-</p>
+      <p>
+        <strong>Text:</strong>
+        <%= @for_select.text %>
+      </p>
 
-<p>
-  <strong>Grouper:</strong>
-  <%= @for_select.grouper %>
-</p>
+      <p>
+        <strong>Grouper:</strong>
+        <%= @for_select.grouper %>
+      </p>
 
-<p>
-  <strong>Option order:</strong>
-  <%= @for_select.option_order %>
-</p>
+      <p>
+        <strong>Option order:</strong>
+        <%= @for_select.option_order %>
+      </p>
 
-<p>
-  <strong>Facility:</strong>
-  <%= @for_select.facility %>
-</p>
+      <p>
+        <strong>Facility:</strong>
+        <%= @for_select.facility %>
+      </p>      
+    </div>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_for_select_path(@for_select) %> |
+
+<%= link_to 'Edit', edit_for_select_path(@for_select) if policy(ForSelect).edit? %> |
 <%= link_to 'Back', for_selects_path %>

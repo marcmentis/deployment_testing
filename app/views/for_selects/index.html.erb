@@ -1,37 +1,122 @@
-<h1>Listing for_selects</h1>
+<div class="row">
+  <div class="large-5 columns large-offset-3 ">
+      <h3>Listing for_selects</h3>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Code</th>
-      <th>Value</th>
-      <th>Text</th>
-      <th>Grouper</th>
-      <th>Option order</th>
-      <th>Facility</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+</div>
+<div class="row">
+  <div class="large-9 columns">
+    <div class="panel radius">
+      <div class="panel callout radius">
+        <%= search_form_for @q, id: 'fFor_select_filter' do |f| %>
+        <div class="row collapse">
+          <div class="hide">
+            <div class="small-2 columns">
+              <%= f.submit class: 'button tiny radius' %>
+            </div>
+          </div>
+          <div class="small-12 columns">
+            <div class="row collapse">
+              <div class="small-1 columns">
+                <%= f.label(:code_start, 'Code:', class: "right inline") %>
+              </div>
+              <div class="small-2 columns end">
+                <%= f.search_field :code_start %>
+              </div>
 
-  <tbody>
-    <% @for_selects.each do |for_select| %>
-      <tr>
-        <td><%= for_select.code %></td>
-        <td><%= for_select.value %></td>
-        <td><%= for_select.text %></td>
-        <td><%= for_select.grouper %></td>
-        <td><%= for_select.option_order %></td>
-        <td><%= for_select.facility %></td>
-        <td><%= link_to 'Show', for_select %></td>
-        <td><%= link_to 'Edit', edit_for_select_path(for_select) %></td>
-        <td><%= link_to 'Destroy', for_select, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+              <div class="small-2 columns">
+                <%= f.label(:facility_eq, 'Facility:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :facility_eq %>
+              </div> 
+
+              <div class="small-2 columns">
+                <%= f.label(:value_start, 'Value:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :value_start %>
+              </div>   
+            </div> 
+
+            <div class="row collapse">
+              <div class="small-1 columns">
+                <%= f.label(:text_start, 'Text:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :text_start %>
+              </div> 
+              <div class="small-2 columns">
+                <%= f.label(:grouper_start, 'Grouper:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :grouper_start %>
+              </div> 
+
+              <div class="small-2 columns">
+                <%= f.label(:option_order_eq, 'Order:', class: "right inline") %>
+              </div>
+              <div class="small-2 left columns">
+                <%= f.search_field :option_order_eq %>
+              </div> 
+            </div>           
+          </div>
+        </div>         
+        <% end %>
+      </div>
+
+      <div class="row">
+        <div class="small-12 small-offset-1 columns ">
+          <table>
+            <thead>
+              <tr class="tableHeader">
+                <th><%= sort_link(@q, :code, "Code") %></th>
+                <th><%= sort_link(@q, :value, "Value") %></th>
+                <th><%= sort_link(@q, :text, "Text") %></th>
+                <th><%= sort_link(@q, :grouper, "Grouper") %></th>
+                <th><%= sort_link(@q, :option_order, "Order") %></th>
+                <th><%= sort_link(@q, :facility, "Facility") %></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @for_selects.each do |for_select| %>
+                <tr>
+                  <td><%= for_select.code %></td>
+                  <td><%= for_select.value %></td>
+                  <td><%= for_select.text %></td>
+                  <td><%= for_select.grouper %></td>
+                  <td><%= for_select.option_order %></td>
+                  <td><%= for_select.facility %></td>
+                  <td><%= link_to 'Show', for_select if policy(for_select).show? %></td>
+                  <td><%= link_to 'Edit', edit_for_select_path(for_select) if policy(for_select).edit? %></td>
+                  <td><%= link_to 'Destroy', for_select, method: :delete, data: { confirm: 'Are you sure?' } if policy(for_select).destroy? %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td colspan="5" class="tableFooter">
+                  <%= paginate @for_selects %>
+                </td>
+                <td colspan="4" class="tableFooter">
+                  <%= @searchNumber %> from <%= @totNumber %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+
+
+    </div>
+    
+  </div>
+</div>
+
 
 <br>
 
-<%= link_to 'New For select', new_for_select_path %>
+<%= link_to 'New For select', new_for_select_path, class: "button tiny radius" if policy(ForSelect).new? %>
