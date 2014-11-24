@@ -73,6 +73,7 @@ class ForSelectsController < ApplicationController
     @for_select.destroy
     respond_to do |format|
       format.html { redirect_to for_selects_url }
+      format.js {}
       format.json { head :no_content }
     end
   end

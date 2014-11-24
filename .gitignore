@@ -20,3 +20,6 @@
 
 # Ignore erd files
 erd*
+
+# Ignore .DS_Store
+.DS_Store

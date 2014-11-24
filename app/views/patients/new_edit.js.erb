@@ -1,0 +1,44 @@
+// Insert new/edit form into divForm
+	$('#divForm').html("<%= j render('form') %>");
+
+// WARD VALUES
+	// If "new" ward will be nil, if edit will have a value
+	var ward = "<%=  @patient.ward %>"
+	// alert(ward.length)
+	if (ward.length > 0) {
+		$('#patient_ward').val(ward);
+	};
+
+//FACILITY VALUES
+	var facility = "<%=  @patient.facility %>"
+	// Get users facility. If not admin2 set can only create new patient for that facility
+	var user_facility = "<%= session[:facility] %>"
+	// Get role as non admin2 cannot change facility values
+	var role = "<%= session[:role] %>" 
+	// Get Facility name
+	var facility_name = "<%= session[:facilityname] %>"
+	
+
+	if (role == 'admin2') {
+		if (facility.length > 0) {
+			$('#patient_facility').val(facility);
+		};
+	} else {
+		if (facility.length > 0) {
+			$('#patient_facility').val(facility).hide();
+			$('#divFacility').append('&nbsp;&nbsp;&nbsp;&nbsp;'+facility_name);
+		} else {
+			$('#patient_facility').val(user_facility).hide();
+			$('#divFacility').append('&nbsp;&nbsp;&nbsp;&nbsp;'+facility_name);
+		};
+	};
+
+
+	
+
+	$('#bNew').hide();
+	$('#bCancel').click(function(){
+		// $('#sWard').appendTo('#divIndexHideWrapper');
+		$('#divForm').html("");
+		$('#bNew').show();
+	});
