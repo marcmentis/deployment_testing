@@ -14,7 +14,9 @@
 	// Get users facility. If not admin2 set can only create new patient for that facility
 	var user_facility = "<%= session[:facility] %>"
 	// Get role as non admin2 cannot change facility values
-	var role = "<%= session[:role] %> " 
+	var role = "<%= session[:role] %>" 
+	// Get Facility name
+	var facility_name = "<%= session[:facilityname] %>"
 	
 
 	if (role == 'admin2') {
@@ -23,9 +25,11 @@
 		};
 	} else {
 		if (facility.length > 0) {
-			$('#patient_facility').val(facility).prop("readonly", true);
+			$('#patient_facility').val(facility).hide();
+			$('#divFacility').append('&nbsp;&nbsp;&nbsp;&nbsp;'+facility_name);
 		} else {
-			$('#patient_facility').val(user_facility).prop("readonly", true);
+			$('#patient_facility').val(user_facility).hide();
+			$('#divFacility').append('&nbsp;&nbsp;&nbsp;&nbsp;'+facility_name);
 		};
 	};
 

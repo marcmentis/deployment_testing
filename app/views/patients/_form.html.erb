@@ -23,7 +23,7 @@
       <%= f.label :number %>
       <%= f.text_field :number %>
     </div>
-    <div>
+    <div id="divFacility">
       <%= f.label :facility %>
       <%#= f.text_field :facility %>
       <%= f.select(:facility, grouped_options_for_select(@grouped_options2), prompt: 'Choose Facility') %>

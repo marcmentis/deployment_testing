@@ -18,7 +18,7 @@ class StaticPagesController < ApplicationController
       session[:role] = @user.role
 
       @for_select = ForSelect.where('value = ?', session[:facility]).first
-      session[:facname] = @for_select.text
+      session[:facilityname] = @for_select.text
       
     else
       session[:authen] = @request.headers["HTTP_REMOTE_USER"]
@@ -37,6 +37,9 @@ class StaticPagesController < ApplicationController
       session[:middleinitial] = @user.middleinitial
       session[:name] = ''+@user.firstinitial+' '+@user.middleinitial+' '+@user.lastname+''
       session[:role] = @user.role
+
+      @for_select = ForSelect.where('value = ?', session[:facility]).first
+      session[:facilityname] = @for_select.text
     end 	
   end
 end
