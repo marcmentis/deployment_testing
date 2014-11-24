@@ -1,4 +1,6 @@
 Startup4002::Application.routes.draw do
+  resources :weekly_notes
+
   resources :patients
   resources :users
   resources :for_selects

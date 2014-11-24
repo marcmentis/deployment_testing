@@ -1,0 +1,43 @@
+<h1>Listing weekly_notes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Danger yn</th>
+      <th>Drugs last changed</th>
+      <th>Drugs not why</th>
+      <th>Drugs change why</th>
+      <th>Meeting date</th>
+      <th>Patient</th>
+      <th>Pre date yesno</th>
+      <th>Pre date no why</th>
+      <th>Pre date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @weekly_notes.each do |weekly_note| %>
+      <tr>
+        <td><%= weekly_note.danger_yn %></td>
+        <td><%= weekly_note.drugs_last_changed %></td>
+        <td><%= weekly_note.drugs_not_why %></td>
+        <td><%= weekly_note.drugs_change_why %></td>
+        <td><%= weekly_note.meeting_date %></td>
+        <td><%= weekly_note.patient_id %></td>
+        <td><%= weekly_note.pre_date_yesno %></td>
+        <td><%= weekly_note.pre_date_no_why %></td>
+        <td><%= weekly_note.pre_date %></td>
+        <td><%= link_to 'Show', weekly_note %></td>
+        <td><%= link_to 'Edit', edit_weekly_note_path(weekly_note) %></td>
+        <td><%= link_to 'Destroy', weekly_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Weekly note', new_weekly_note_path %>

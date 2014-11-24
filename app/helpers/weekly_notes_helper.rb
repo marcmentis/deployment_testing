@@ -1,0 +1,2 @@
+module WeeklyNotesHelper
+end

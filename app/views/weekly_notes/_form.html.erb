@@ -1,0 +1,53 @@
+<%= form_for(@weekly_note) do |f| %>
+  <% if @weekly_note.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@weekly_note.errors.count, "error") %> prohibited this weekly_note from being saved:</h2>
+
+      <ul>
+      <% @weekly_note.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :danger_yn %><br>
+    <%= f.text_field :danger_yn %>
+  </div>
+  <div class="field">
+    <%= f.label :drugs_last_changed %><br>
+    <%= f.text_field :drugs_last_changed %>
+  </div>
+  <div class="field">
+    <%= f.label :drugs_not_why %><br>
+    <%= f.text_field :drugs_not_why %>
+  </div>
+  <div class="field">
+    <%= f.label :drugs_change_why %><br>
+    <%= f.text_field :drugs_change_why %>
+  </div>
+  <div class="field">
+    <%= f.label :meeting_date %><br>
+    <%= f.date_select :meeting_date %>
+  </div>
+  <div class="field">
+    <%= f.label :patient_id %><br>
+    <%= f.number_field :patient_id %>
+  </div>
+  <div class="field">
+    <%= f.label :pre_date_yesno %><br>
+    <%= f.text_field :pre_date_yesno %>
+  </div>
+  <div class="field">
+    <%= f.label :pre_date_no_why %><br>
+    <%= f.text_field :pre_date_no_why %>
+  </div>
+  <div class="field">
+    <%= f.label :pre_date %><br>
+    <%= f.text_field :pre_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
