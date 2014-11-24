@@ -1,0 +1,20 @@
+// Insert new/edit form into divForm
+$('#divForm').html("<%= j render('form') %>");
+
+// If "new" ward will be nil, if edit will have a value
+var ward = "<%= j @patient.ward %>"
+var facility = "<%= j @patient.facility %>"
+// alert(ward.length)
+if (ward.length > 0) {
+	$('#patient_ward').val(ward);
+};
+if (facility.length > 0) {
+	$('#patient_facility').val(ward);
+};
+
+$('#bNew').hide();
+$('#bCancel').click(function(){
+	// $('#sWard').appendTo('#divIndexHideWrapper');
+	$('#divForm').html("");
+	$('#bNew').show();
+});

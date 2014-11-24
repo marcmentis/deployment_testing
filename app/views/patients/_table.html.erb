@@ -1,0 +1,62 @@
+<table>
+  <thead>
+    <tr class="tableHeader">
+      <% if session[:role] == "admin2" %>
+        <th><%= sort_link(@q, :facility, "Fac") %></th>
+      <% end %>
+      <th><%= sort_link(@q, :firstname, "First") %></th>
+      <th><%= sort_link(@q, :lastname, "Last") %></th>
+      <th><%= sort_link(@q, :number) %></th>
+      <th><%= sort_link(@q, :ward) %></th>
+      <th><%= sort_link(@q, :doa, "DOA") %></th>
+      <th><%= sort_link(@q, :dob, "DOB") %></th>
+      <th><%= sort_link(@q, :dod, "DOD") %></th>
+      <th></th>
+      <% if session[:role] == "admin2" %>
+        <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <% if session[:role] == "admin2" %>
+        <td><%= patient.facility %></td>
+        <% end %>
+        <td><%= patient.firstname %></td>
+        <td><%= patient.lastname %></td>
+        <td><%= patient.number %></td>
+        <td><%= patient.ward %></td>
+        <% unless patient.doa.blank? %>
+          <td><%= patient.doa.strftime('%F') %></td>
+        <% else %>
+          <td> </td>
+        <% end %>
+        <% unless patient.dob.blank? %>
+          <td><%= patient.dob.strftime('%F') %></td>
+        <% else %>
+          <td> </td>
+        <% end %>
+        <% unless patient.dod.blank? %>
+          <td><%= patient.dod.strftime('%F') %></td>
+        <% else %>
+          <td> </td>
+        <% end %>
+
+        <!-- <td><%#= link_to 'Show', patient %></td> -->
+        <td><%= link_to 'Edit', edit_patient_path(patient), class: 'lEdit', remote: true%></td>
+        <% if session[:role] == "admin2" %>
+          <td><%= link_to 'D', patient, method: :delete, remote: true, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="6" class="tableFooter">
+        <%= paginate @patients %>
+      </td>
+      <td colspan="4" class="tableFooter">
+        <%= @searchNumber %>  from <%= @totNumber %> total
+      </td>
+    </tr>
+  </tbody> 
+</table> 

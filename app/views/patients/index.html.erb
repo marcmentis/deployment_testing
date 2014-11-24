@@ -1,43 +1,139 @@
-<h1>Listing patients</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Number</th>
-      <th>Facility</th>
-      <th>Ward</th>
-      <th>Doa</th>
-      <th>Dob</th>
-      <th>Dod</th>
-      <th>Updated by</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @patients.each do |patient| %>
-      <tr>
-        <td><%= patient.firstname %></td>
-        <td><%= patient.lastname %></td>
-        <td><%= patient.number %></td>
-        <td><%= patient.facility %></td>
-        <td><%= patient.ward %></td>
-        <td><%= patient.doa %></td>
-        <td><%= patient.dob %></td>
-        <td><%= patient.dod %></td>
-        <td><%= patient.updated_by %></td>
-        <td><%= link_to 'Show', patient %></td>
-        <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
-        <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="row">
+  <div class="large-3 large-centered columns alignCenterNoPadding">
+    <% if session[:role] == "admin2" %>
+      <h3>Patient List</h3>
+    <% else %>
+      <h3>Patient List (<%= session[:facname] %>)</h3>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
+ <div class="row">  
+    <div class="large-9 columns">
+      <div class="panel radius">
+        <div class="panel callout radius">
+           <%= search_form_for @q, id: 'fPatient_filter', remote: true do |f| %>
+              <div class="row collapse">
+                <div class="hide" >
+                  <div class="small-2 columns">
+                      <%= f.submit class: 'button tiny radius' %>           
+                    </div>
+                </div>
 
-<br>
+                <div class="small-12 columns">
+                  <div class="row collapse">
+                      <% if session[:role] == "admin2" %>
+                        <div class="small-1 columns">
+                          <%= f.label(:facility_eq, "Fac:", class: " right inline")  %>
+                        </div>
+                        <div class="small-2 left columns">
+                          <%= f.select(:facility_eq, grouped_options_for_select(@grouped_options2), prompt: 'Choose...') %>
+                        </div>
+                      <% end %>
+                      <div class="small-1 columns">
+                        <%= f.label(:firstname_start, 'First:', class: "right inline")  %>  
+                      </div>
+                      <div class="small-2 left columns">
+                            <%= f.search_field :firstname_start %>
+                      </div>
+                      
+                      <div class="small-1 columns">
+                        <%= f.label(:lastname_start, "Last:", class: " right inline")  %>
+                      </div>
+                      <div class="small-2 left columns">
+                        <%= f.search_field :lastname_start %>
+                      </div>
 
-<%= link_to 'New Patient', new_patient_path %>
+                      <div class="small-1 columns">
+                        <%= f.label(:number_start, "C #:", class: " right inline", title: "C Number")  %>
+                      </div>
+                      <div class="small-2 left columns">
+                        <%= f.search_field :number_start %>
+                      </div>
+
+                      
+                  </div>
+                  <div class="row collapse">
+                    <div class="small-1 columns">
+                      <%= f.label(:ward_eq, "Ward", class: "right inline")  %>
+                    </div>
+                    <div class="small-2 left columns">
+                      <%#= f.search_field :ward_cont %>
+                      <%= f.select(:ward_eq, grouped_options_for_select(@grouped_options), prompt: 'Choose...') %>
+                    </div>
+
+                    <div class="small-2 column">
+                      <%= f.label(:doa_gteq, "DOA after:", class: "right inline", title: "DOA between")  %>
+                    </div>
+                    <div class="small-3 left columns">
+                      <%= f.date_field :doa_gteq %>
+                      <%#= f.date_select :doa_cont %>
+                      <%#= f.search_field :doa_gteq%>
+                    </div>
+                    <div class="small-1 column ">
+                      <%= f.label :doa_lteq, "before:", class: "right inline" %>
+                    </div>
+                    <div class="small-3 left columns">
+                      <%= f.date_field :doa_lteq %>
+                      <%#= f.search_field :doa_lteq %> 
+                    </div>         
+                  </div>
+                </div>
+                    
+
+                    
+              </div>
+
+            <% end %>
+        </div>
+        <div id="divTable">
+          <%= render('table') %>
+        </div>
+      </div>
+    </div>
+   
+    <div class="large-3 columns">
+      <div class="panel radius">
+        <!-- <div class="panel callout radius"> -->
+          <div class="large-centered">
+              <%= link_to 'New Pat', new_patient_path, class: "button tiny radius", id: 'bNew', remote: true%>
+          </div>
+          <div id="divForm">
+            <%#= render('form') %> 
+          </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  
+
+  <!-- <div class="large-3 columns panel">
+    <div class="large-centered">
+        <%#= link_to 'New Pat', new_patient_path, class: "button tiny radius", id: 'bNew', remote: true%>
+    </div>
+    <div id="divForm">
+      <%#= render('form') %> 
+    </div>
+  </div> -->
+
+  <!-- <div id="divIndexHideWrapper">
+  <%#= select_tag(:ward_id, grouped_options_for_select(@grouped_options), id: 'sWard', prompt: 'Choose Ward') %>
+  </div> -->
+  
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

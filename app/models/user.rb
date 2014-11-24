@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 	end
 
 	def psych2?
-		role == "psych1"
+		role == "psych2"
 	end
 
 	def med1?
