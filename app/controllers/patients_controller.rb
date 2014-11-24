@@ -62,7 +62,7 @@ class PatientsController < ApplicationController
     # Generate the 2d array needed for grouped select in view
     @grouped_options = ForSelect.GroupedSelect(session[:facility],'ward', ForSelect) 
     @grouped_options2 = ForSelect.GroupedSelect('9999','facility', ForSelect)
-    
+
     respond_to do |format|
       format.html { render action: 'edit' }
       format.js { render "new_edit" }
@@ -92,7 +92,25 @@ class PatientsController < ApplicationController
   def update
     respond_to do |format|
       if @patient.update(patient_params)
+        @q = Patient.search(params[:q])
+        @patients = @q.result.page(params[:page]).per(15)
+
+        if session[:role] == 'admin2'
+          @q = Patient.search(params[:q])  
+          @patients = @q.result.page(params[:page]).per(15)
+          # @totNumber = Patient.all.count
+          # @searchNumber = @q.result.count     
+        else 
+          # Get patients for ransack
+          fac_patients = Patient.where('facility = ?', session[:facility])
+          @q = fac_patients.search(params[:q]) 
+          @patients = @q.result.page(params[:page]).per(15)
+          # @totNumber = fac_patients.count
+          # @searchNumber = @q.result.count  
+        end
+
         format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
+        format.js { render "update_create" }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

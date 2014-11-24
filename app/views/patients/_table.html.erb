@@ -46,7 +46,7 @@
         <!-- <td><%#= link_to 'Show', patient %></td> -->
         <td><%= link_to 'Edit', edit_patient_path(patient), class: 'lEdit', remote: true%></td>
         <% if session[:role] == "admin2" %>
-          <td><%= link_to 'D', patient, method: :delete, remote: true, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', patient, method: :delete, data: {confirm: 'Are you sure?'} %></td>
         <% end %>
       </tr>
     <% end %>
