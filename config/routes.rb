@@ -1,4 +1,16 @@
 Startup4002::Application.routes.draw do
+  resources :weekly_notes do
+    collection do
+      match 'presentation' => 'weekly_notes#presentation', via: [:get, :post], as: :presentation
+      get 'meetings'
+      get 'meetingtracker'
+      get 'meetingtrackertable'
+      get 'tracker_patnotes'
+    end
+  end
+  # Make named path for weekly_notes "new" to pass pat id
+  get 'weekly_notes/:id/new' => 'weekly_notes#new_with_pat', as: :new_with_pat
+  
   resources :patients
   resources :users
   resources :for_selects

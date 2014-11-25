@@ -1,0 +1,53 @@
+<div class="row">
+	    	<div class="large-3 columns large-centered alignCenterNoPadding"><h5>Ward Weekly Clinical Note</h5></div>
+</div>
+<div class="row">
+	<div class=" large-9 columns large-centered panel callout radius">	     
+        <div class="row">  <div class="large-12 columns">
+			<%= form_tag(presentation_weekly_notes_path, method: 'get', id: "fMeetings", name: "fMeetings", remote: true) do %>	
+	        <div class="large-3 columns">
+	          	<%= select_tag(:s_weekly_ward, grouped_options_for_select(@grouped_options), prompt: 'Choose Ward') %>
+	        </div>
+	        <% end %>
+	        <div id="divFPat_Search" class="hide">
+				<%= form_tag(meetings_weekly_notes_path, method: 'get', id: 'pat_search', name: 'pat_search', remote: true) do %>
+
+	        		<div class="large-2 column alignRtNoPadding" style="margin-top: 5px" >
+	        		   <%= label_tag("New Meeting: ") %>
+	        		</div>
+			        <div id="divMeetingDate" class="large-3 columns" >
+			        	
+			        	<%= date_field_tag(:meeting_date) %>
+			        </div>
+
+			        <div id="divPreviousMeetings" class="large-3 columns">
+				        <!-- Previous meeting select will be passed in by Ajax -->
+			        </div>
+			        <div class="hide">
+		        		<%= text_field_tag(:t_ward) %>
+		        	</div>  </div>
+		        <% end %>
+	        </div>
+        </div>        
+	      
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="large-6 columns " >
+		<div id="divToDo" class="panel radius">
+			<%= render('to_do') %>
+		</div>
+		<div id="divPastNotes" class="panel radius">
+			<strong>Past Notes</strong>
+		</div>
+	</div>
+	<div class="large-6 columns">
+		<div id="divForm" class="row panel radius">
+			<b>Weekly Meeting Form</b>
+  			<%#= render('form') %>  
+		</div>
+			
+	</div>
+</div>
