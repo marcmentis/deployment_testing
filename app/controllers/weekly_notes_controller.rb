@@ -28,6 +28,7 @@ class WeeklyNotesController < ApplicationController
       # in presentation.js.erb for the previous meeting date select.
       # ( The ActiveRecord Relation uses "options_from_collection_for_select")
     @meeting_date.to_a.map! {|meeting| meeting.meeting_date.strftime('%F')}
+    @facilityname = session[:facilityname]
     
     respond_to do |format|
       format.html {}
@@ -168,12 +169,31 @@ class WeeklyNotesController < ApplicationController
     @grouped_options = ForSelect.GroupedSelect(session[:facility], 'ward', ForSelect)
     @drug_collection = ForSelect.CollectionForSelect('9999','drugs_changed', ForSelect)
 
+    @facilityname = session[:facilityname]
+
     authorize @weeklyNotes
     respond_to do |format|
       format.html {}
       format.js {}
     end
   end
+
+  # GET /weekly_notes/tracker_patnotes
+    # In Weekly Clinical note tracker get past notes when pat selected
+      # meetingtracker.html.erb
+  def tracker_patnotes
+    @pat = Patient.find(params[:id])
+    # Get all meeting notes for patient
+    @pat_notes = WeeklyNote.joins(:patient)
+                          .where(patients: {facility: session[:facility]})
+                          .where(weekly_notes: {patient_id: @pat[:id]})
+                          .order(meeting_date: :desc)
+
+    authorize @pat_notes
+    respond_to do |format|
+      format.js { }
+    end   
+  end  
 
 
 # EITHER

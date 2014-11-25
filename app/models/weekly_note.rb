@@ -14,7 +14,7 @@ class WeeklyNote < ActiveRecord::Base
         # 	                                        	WHERE w2.patient_id = w1.patient_id 
         # 	                                        	GROUP BY w2.patient_id) ")
 
-		# GETS RELATION FOR LATEST NOTES AT GIVEN FACIITY
+		# GETS RELATION FOR LATEST NOTES AT GIVEN FACILITY
        latestNoteRelation = WeeklyNote.find_by_sql("SELECT * 
         											FROM weekly_notes w1 
         	                                        WHERE w1.meeting_date IN (SELECT max(w2.meeting_date) max_meeting_date 
