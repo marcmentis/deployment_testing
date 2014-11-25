@@ -11,7 +11,11 @@ Startup4002::Application.routes.draw do
   # Make named path for weekly_notes "new" to pass pat id
   get 'weekly_notes/:id/new' => 'weekly_notes#new_with_pat', as: :new_with_pat
   
-  resources :patients
+  resources :patients do
+    collection do
+      match 'complex' => 'patients#complex', via: [:get, :post], as: :complex
+    end
+  end
   resources :users
   resources :for_selects
 

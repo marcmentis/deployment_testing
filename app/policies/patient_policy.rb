@@ -17,4 +17,8 @@ class PatientPolicy < ApplicationPolicy
 	def destroy?
 		user.admin2?
 	end
+
+	def complex?
+		user.admin2?
+	end
 end

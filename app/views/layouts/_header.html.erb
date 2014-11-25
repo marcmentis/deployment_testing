@@ -29,6 +29,7 @@
             <li><%= link_to("For Select", for_selects_path) if policy(ForSelect).index? %></li>
             <li><%= link_to("Users", users_path) if policy(User).index? %></li>
             <li><%= link_to("Patients", patients_path) %></li>
+            <li><%= link_to("Patients Complex", complex_patients_path) if policy(Patient).complex? %></li>
             <li class="has-dropdown">
               <a href="#">Nested Drop</a>
               <ul class="dropdown">

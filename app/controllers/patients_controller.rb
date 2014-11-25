@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
-
+# PATIENTS
   # GET /patients
   # GET /patients.json
   def index
@@ -129,6 +129,34 @@ class PatientsController < ApplicationController
     end
   end
 
+
+# COMPLEX PATIENT SEARCH
+
+  def complex
+
+    if params[:PatNumber] == nil
+      params.merge!(PatNumber: 15)
+    end
+    @q = Patient.search(params[:q])      
+    @patients = @q.result.page(params[:page]).per(params[:PatNumber])
+    @q.build_condition  
+    @q.build_sort if @q.sorts.empty?
+
+    @totNumber = Patient.all.count
+    @searchNumber = @q.result.count
+
+    # Generate the 2d array needed for grouped select in view
+    @grouped_options = ForSelect.GroupedSelect(session[:facility], 'ward', ForSelect)
+
+    authorize @patients
+    respond_to do |format|
+      format.html {}
+      format.xls {}
+    end
+    
+  end
+
+# EITHER
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient

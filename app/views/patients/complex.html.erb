@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="large-10 large-centered columns">
+    <div class="large-9 large-centered columns alignCenterNoPadding">
+      <h3>Dynamic Patient Search</h3>
+    </div>
+    <%= search_form_for @q, url: complex_patients_path, method: :post do |f| %>
+        <div class="panel callout radius">
+          <%= f.condition_fields do |c| %>
+            <div class="row">
+              <%= c.attribute_fields do |a| %>
+                <div class="large-4 columns">
+                  <%= a.attribute_select associations: [:weekly_notes] %>
+                </div>
+              <% end %>
+              <div class="large-4 columns">
+                <%= c.predicate_select %>
+              </div>
+              <%= c.value_fields do |v| %>
+                <div class="large-4 columns">
+                  <%= v.text_field :value %>
+                </div>
+
+              <% end %>
+            </div> 
+            <% end %>
+
+          <div class="row">
+            <div class="large-2 columns">
+              <%= f.submit "Find", class: "button tiny radius" %>
+            </div>
+            <div class="large-1 large-offset-2 columns">
+              <%= label_tag('Show:', nil, class: 'right') %>
+            </div>
+            <div class="large-1 columns">
+              <%= text_field_tag "PatNumber", params[:PatNumber] %>
+            </div>
+
+            <div class="large-2 large-offset-2 columns">
+              <%= label_tag('Download:', nil, class: 'right') %>
+            </div>
+            <div class="large-2 columns end">
+              <%= link_to " Excel", complex_patients_path(format: "xls", :PatNumber => params[:PatNumber]) %>
+              
+            </div>
+          </div>
+        </div>
+      
+      
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 large-centered columnms">
+    <table class="large-10 large-centered columns">
+      <thead>
+        <tr class="tableHeader">
+          <th><%= sort_link(@q, :facility, "Fac") %></th>
+          <th><%= sort_link(@q, :firstname) %></th>
+          <th><%= sort_link(@q, :lastname) %></th>
+          <th><%= sort_link(@q, :number) %></th>
+          <th>Ward</th>
+          <th><%= sort_link(@q, :doa, "Admission") %></th>
+          <th><%= sort_link(@q, :dob, "Birth") %></th>
+          <th><%= sort_link(@q, :dod, "Discharge") %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @patients.each do |patient| %>
+          <tr>
+            <td><%= patient.facility %></td>
+            <td><%= patient.firstname %></td>
+            <td><%= patient.lastname %></td>
+            <td><%= patient.number %></td>
+            <td><%= patient.ward %></td>
+            <% unless patient.doa.blank? %>
+              <td><%= patient.doa.strftime('%F') %></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% unless patient.dob.blank? %>
+              <td><%= patient.dob.strftime('%F') %></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% unless patient.dod.blank? %>
+              <td><%= patient.dod.strftime('%F') %></td>
+            <% else %>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
+          <tr>
+            <td colspan="5" class="tableFooter">
+              <%= paginate @patients %>
+            </td>
+            <td colspan="3" class="tableFooter">
+              <%= @searchNumber %> from <%= @totNumber %> total
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
