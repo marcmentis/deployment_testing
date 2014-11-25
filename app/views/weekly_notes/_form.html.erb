@@ -1,53 +1,123 @@
-<%= form_for(@weekly_note) do |f| %>
-  <% if @weekly_note.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@weekly_note.errors.count, "error") %> prohibited this weekly_note from being saved:</h2>
+ 
+<div><strong>Weekly Meeting Form:</strong>
+        &nbsp;&nbsp;<span class="alertText"><%= @pat.firstname %> <%= @pat.lastname %> </span>
+        &nbsp;&nbsp;<%= @pat.number %> 
+        &nbsp;&nbsp;<%= @pat.ward %>
+</div>
+  
+<%= form_for(@weekly_note, html: {class: "size12Line14"}, remote: true) do |ff| %>
+    <% if @weekly_note.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@weekly_note.errors.count, "error") %> prohibited this weekly_note from being saved:</h2>
 
-      <ul>
-      <% @weekly_note.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @weekly_note.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="hide">
+      <%= text_field_tag(:th_ward) %>
+      <%#= ff.label :meeting_date %>
+      <%= ff.date_field :meeting_date %>
+      <%#= f.date_select :meeting_date %>
+      <%#= ff.label :pat_id %>
+      <%= ff.text_field :patient_id, value: @pat.id %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :danger_yn %><br>
-    <%= f.text_field :danger_yn %>
-  </div>
-  <div class="field">
-    <%= f.label :drugs_last_changed %><br>
-    <%= f.text_field :drugs_last_changed %>
-  </div>
-  <div class="field">
-    <%= f.label :drugs_not_why %><br>
-    <%= f.text_field :drugs_not_why %>
-  </div>
-  <div class="field">
-    <%= f.label :drugs_change_why %><br>
-    <%= f.text_field :drugs_change_why %>
-  </div>
-  <div class="field">
-    <%= f.label :meeting_date %><br>
-    <%= f.date_select :meeting_date %>
-  </div>
-  <div class="field">
-    <%= f.label :patient_id %><br>
-    <%= f.number_field :patient_id %>
-  </div>
-  <div class="field">
-    <%= f.label :pre_date_yesno %><br>
-    <%= f.text_field :pre_date_yesno %>
-  </div>
-  <div class="field">
-    <%= f.label :pre_date_no_why %><br>
-    <%= f.text_field :pre_date_no_why %>
-  </div>
-  <div class="field">
-    <%= f.label :pre_date %><br>
-    <%= f.text_field :pre_date %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+    <!-- QUESTION ONE: DANGEROUS YES/NO -->
+    <div class="small-12 columns panel callout radius">
+          <strong>1) Is danger to self/other, if in approved housing?</strong>
+          <div class="small-12 columns">
+            <div class="small-12 small-offset-1 columns">
+                "Yes" <%= ff.radio_button :danger_yn, "Y" %>
+              &nbsp;"No"  <%= ff.radio_button :danger_yn, "N" %>
+            </div>
+          </div> 
+
+        <!-- IF DANGEROUS - DRUG QUESTIONS -->
+          <div id="divWhenMedChanged" class="small-12 columns hide">
+              <strong>When was med for Axis1/11 last changed?</strong>
+            <div id="divDrugsLastChanged" class="small-4 colums"></div>    
+            <div class="hide"><%= ff.text_field :drugs_last_changed %></div>
+          </div>
+
+          <div id="divWhatMedChange" class="small-12 columns hide">
+            <%#= ff.label :drugs_change_why %>
+            <strong>What med change was made for Axis 1/11 and why?</strong><br />
+            <%= ff.text_area :drugs_change_why %>
+          </div>
+
+          <div id="divWhyNoMedChange" class="small-12 columns hide">
+            <%#= ff.label :drugs_not_why %>
+            <strong>Why no med change for Axis 1/11 disorder?</strong><br />
+            <%= ff.text_area :drugs_not_why %>
+          </div> 
+
+        <!-- IF NOT DANGEROUS - HOUSING QUESTIONS  -->
+          <div id="divHousingDateSet" class="small-12 columns hide">
+            <strong>Has date been set for Housing Meeting?</strong>      
+            <div class="small-12 small-offset-1 columns">
+                "Yes" <%= ff.radio_button :pre_date_yesno, "Y" %>
+              &nbsp;"No"  <%= ff.radio_button :pre_date_yesno, "N" %>
+            </div> 
+          </div>
+
+          <div id="divPreDate" class="small-12 columns hide">
+            <strong>Date:</strong>
+            <div class="small-5 end"> <%= ff.date_field :pre_date %> </div>
+          </div>
+
+          <div id="divWhyNoPreDateSet" class="small-12 columns hide">
+            <strong>Why has no date been set for Housing Meeting?</strong><br />
+            <%= ff.text_area :pre_date_no_why %>
+          </div>
+      
+    </div>
+
+
+
+
+ 
+
+    <!-- UPDATE/CREATE DELETE BUTTONS -->
+    <div class="small-12 small-offset-2 columns">
+      <%= ff.submit class: 'button tiny radius' %>
+      <%= link_to("Cancel", "#", id: "bCancel", class: "button tiny radius") %>
+    </div>
   </div>
 <% end %>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

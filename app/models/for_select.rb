@@ -16,8 +16,9 @@ class ForSelect < ActiveRecord::Base
 		
 	end
 
-	def self.CollectionForSelect(code, db_model)
-		select_collection = db_model.where(code: code)
+	def self.CollectionForSelect(facility, code, db_model)
+		select_collection = db_model.where(facility: facility)
+									.where(code: code)
 									.order(option_order: :asc)
 	end
 end

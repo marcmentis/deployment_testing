@@ -1,0 +1,55 @@
+ <div>
+	<strong>Past Notes</strong>  
+	&nbsp;&nbsp;<span class="alertText"><%= @pat.firstname %> <%= @pat.lastname %> </span>
+    &nbsp;&nbsp;<%= @pat.number %> 
+    &nbsp;&nbsp;<%= @pat.ward %>
+</div>
+
+<% @pat_notes.each do |note| %>
+	<div class="panel callout radius size12Line14">
+		<strong>Meeting:</strong> <%= note.meeting_date.strftime('%F') %>
+		(entered: <%= note.updated_at.strftime('%F %R') %> )
+
+		<% if note.danger_yn == 'Y' %>
+			<!-- IF Dangerous = YES -->
+			<div>
+				<strong>Dangerous:</strong> <%= note.danger_yn %>
+				&nbsp;&nbsp;&nbsp;<strong>Drugs Last Changed:</strong> 
+				<%= note.drugs_last_changed %>
+			</div>
+			<div>
+				<strong>Reason for drug last changed:</strong><br />
+				<%= note.drugs_not_why %>
+				<%= note.drugs_change_why %>
+			</div>
+		<% elsif note.danger_yn == 'N' %>
+			<div>
+				<strong>Dangerous:</strong> <%= note.danger_yn %>
+				&nbsp;&nbsp;&nbsp;<strong>Housing Meeting Set:</strong> 
+				<%= note.pre_date_yesno %>
+			</div>
+			<% if note.pre_date_yesno == 'Y' %>
+				<div>
+					<% unless note.pre_date.blank? %>
+						<strong>Date:</strong> <%= note.pre_date.strftime('%F') %>
+					<% else %>
+						<strong>Date:</strong> ERROR NO DATE %>
+					<% end %>
+				</div>
+			<% elsif note.pre_date_yesno == 'N' %>
+				<div>
+					<strong> Why no date for Housing Meeting set? </strong><br />
+					<%= note.pre_date_no_why %>
+
+				</div>
+			<% end %>
+		<% end %>
+		
+
+		<!-- IF DANGEROUS = NO -->
+	</div>
+	
+		
+		
+<% end %>
+

@@ -1,0 +1,131 @@
+ // RENDERING
+	$('#divForm').html("<%= j render('form') %>");
+	$('#divPastNotes').html("<%= j render('pastnotes') %>")
+
+// CODE FOR _FORM
+	// VARIABLES 
+		var ward = $('#s_weekly_ward').val();
+			$('#th_ward').val(ward);
+		var new_meeting = $('#meeting_date').val();
+		var previous_meetings = $('#sPreviousMeetings').val();	
+		// Find the date to place in #weekly_note_meeting_date
+		if(new_meeting != ""){
+			chosen_date = new_meeting;
+		} else if (previous_meetings != ""){
+			chosen_date = previous_meetings;
+		};
+			$('#weekly_note_meeting_date').val(chosen_date);
+
+		// Don't escape javascript 'j' if integer or date
+		// Escape javascript if text - incase has special chars like /n
+		var id = $.trim('<%= @weekly_note.id %>');
+		var drugs_not_why = $.trim(' <%= @weekly_note.drugs_not_why %> ');
+		var drugs_change_why = $.trim(' <%= j @weekly_note.drugs_change_why %> ');
+		var drugs_last_changed = $.trim(' <%= j @weekly_note.drugs_last_changed %> ');	
+		var pre_date_no_why = $.trim("<%= j @weekly_note.pre_date_no_why %>");
+		var pre_date = $.trim('<%= @weekly_note.pre_date %>');
+		
+
+	// BUTTONS
+		$('#bCancel').click(function(){
+			// $('#sWard').appendTo('#divIndexHideWrapper');
+			$('#divForm').html("<b>Weekly Meeting Form</b>");
+			$('#divPastNotes').html("<b>Past Notes</b>");
+		});
+
+	// RADIO BUTTONS
+		$(':radio').change(function(){
+			name = $(this).attr('name');
+			value = $(this).val();
+			// If radio button is danger_yn
+			if (name == 'weekly_note[danger_yn]' && value == 'Y') {
+				quest1HideAndEmptyAllFields();
+				$('#divWhenMedChanged').show();
+				
+			} else if (name == 'weekly_note[danger_yn]' && value == 'N') {
+				quest1HideAndEmptyAllFields();
+				$('#divHousingDateSet').show();			
+			};
+
+			// If radio button is pre_date_yesno
+			if (name == 'weekly_note[pre_date_yesno]' && value == 'Y' ) {
+				quest1HideAndEmptyAllFields();
+				$('#divPreDate').show();
+			} else if (name == 'weekly_note[pre_date_yesno]' && value == 'N') {
+				quest1HideAndEmptyAllFields();
+				$('#divWhyNoPreDateSet').show();
+			};
+		});
+
+	// FUNCTIONS USED
+		function quest1HideAndEmptyAllFields(){
+			// Hide all drug field divs
+			$('#divWhenMedChanged').hide();
+			$('#divWhyNoMedChange').hide();
+			$('#divWhatMedChange').hide();
+			// Empty all drug fields
+			$('#sdrug_collection').val('');
+			$('#weekly_note_drugs_last_changed').val('')
+			$('#weekly_note_drugs_change_why').val('');
+			$('#weekly_note_drugs_not_why').val('');
+			// Hide all housing divs
+			$('#divWhyNoPreDateSet').hide();
+			$('#divPreDate').hide();
+			// Empty all housing fields
+			$('#weekly_note_pre_date').val('');
+			$('#weekly_note_pre_date_no_why').val('');
+		};
+
+	// SELECTS
+		// Generate select 'sdrug_collection'
+		$('#divDrugsLastChanged').html("<%= j select_tag(:sdrug_collection, options_from_collection_for_select(@drug_collection, :value, :text), prompt: 'Drugs Changed') %>")	
+
+		// Actions sdrug_collection will perform on change
+		$('#sdrug_collection').change(function(){
+			var duration = $(this).val();
+			$('#weekly_note_drugs_last_changed').val(duration)
+
+			if (duration == 'Gt 8 weeks') {
+				$('#divWhyNoMedChange').show();
+				$('#divWhatMedChange').hide();
+				$('#weekly_note_drugs_change_why').val('');
+			} else {
+				$('#divWhatMedChange').show();
+				$('#divWhyNoMedChange').hide();
+				$('#weekly_note_drugs_not_why').val('');
+			};
+		});
+
+		// Set sdrug_collection value if in 'edit' mode
+		if (drugs_last_changed.length > 0) {
+			$('#sdrug_collection').val(drugs_last_changed);
+		};
+
+	// Assigning Variables and Determining presentations
+		
+
+		
+		//By checking for comment length can assume 'edit' mode and show appropriatly	
+		if (drugs_not_why.length > 0) {
+			$('#divWhenMedChanged').show();
+			$('#divWhyNoMedChange').show();
+			$('#divWhatMedChange').hide();
+		}; 
+		if (drugs_change_why.length > 0) {
+			$('#divWhenMedChanged').show();
+			$('#divWhatMedChange').show();
+			$('#divWhyNoMedChange').hide();		
+		};
+		if (pre_date_no_why.length > 0) {
+			$('#divHousingDateSet').show();
+			$('#divWhyNoPreDateSet').show();
+		}; 
+		if (pre_date.length > 0) {
+			$('#divHousingDateSet').show();
+			$('#divPreDate').show();
+		};
+
+// CODE FOR _PASTNOTES		
+
+
+

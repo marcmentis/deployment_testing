@@ -1,0 +1,73 @@
+<div class="row ">
+  <div class="large-6 columns">
+    <div><b>To Do</b></div>
+    <table>
+      <thead>
+        <tr class="tableHeader">
+          <!-- <th>FID</th> -->
+          <!-- <th><%#= sort_link(@q, :lastname, "Name") %></th> -->
+          <th>Name</th>
+          <th></th>
+          <!-- <th></th>
+          <th></th>-->
+        </tr>
+      </thead>
+      <tbody>
+        <% @all_to_do.each do |pat| %>
+          <tr>
+            <!-- <td><%#= pat.facility_id %></td> -->
+            <td><%= pat.lastname %> <%= pat.firstname %> <%= pat.number %> </td>
+            <!-- <td><%#= link_to 'Show', pat %></td> -->
+            <td><%= link_to 'new', new_with_pat_path(pat), class: 'lEdit', remote: true%></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td class="tableFooter">
+            <%#= paginate @to_do %>
+          </td>
+          <!-- <td colspan="3" class="tableFooter">
+            <%#= @searchNumber %>  from <%#= @totNumber %> total
+          </td> -->
+        </tr>
+      </tbody> 
+    </table> 
+
+  </div>
+  <div class="large-6 columns">
+    <div><b>Done</b></div>
+    <table>
+      <thead>
+        <tr class="tableHeader">
+          <!-- <th>FID</th> -->
+          <!-- <th><%#= sort_link(@q, :lastname, "Name") %></th> -->
+          <th>Name</th>
+          <th></th>
+          <!-- <th></th>
+          <th></th>-->
+        </tr>
+      </thead>
+      <tbody>
+        <% @all_done.each do |pat| %>
+          <tr> 
+            <!-- <td><%#= pat.facility_id %></td> -->
+            <td><%= pat.lastname %> <%= pat.firstname %> <%= pat.number %> </td>
+            <!-- <td><%#= link_to 'Show', pat %></td> -->
+            <td><%= link_to 'edit', edit_weekly_note_path(pat, chosen_date: @chosen_date), remote: true%></td>
+            <!-- <td><a data-params="something=123" data-method="get" 
+    href="/weekly_notes/501/edit?now=5" rel="nofollow">edit2</a></td> -->
+          </tr>
+        <% end %>
+        <tr>
+          <td class="tableFooter">
+            <%#= paginate @to_do %>
+          </td>
+          <!-- <td colspan="3" class="tableFooter">
+            <%#= @searchNumber %>  from <%#= @totNumber %> total
+          </td> -->
+        </tr>
+      </tbody> 
+    </table> 
+  </div>
+</div>
+
+      
