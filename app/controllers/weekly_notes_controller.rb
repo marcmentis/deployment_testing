@@ -15,6 +15,7 @@ class WeeklyNotesController < ApplicationController
     @all_done = []
     @all_to_do = []
     @meeting_date = WeeklyNote.select(:meeting_date).distinct.joins(:patient)
+                              .where(patients: {facility: session[:facility]})
                               .where(patients: {ward: params[:s_weekly_ward]})
                               .order(meeting_date: :desc)
 
