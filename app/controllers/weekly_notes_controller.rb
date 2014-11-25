@@ -153,7 +153,7 @@ class WeeklyNotesController < ApplicationController
     # From Navigation Meeting Tracker,  _header.html.erb, meetingtracker.html.erb
   def meetingtracker
     # byebug
-    latestNoteArray = WeeklyNote.latest_note_array
+    latestNoteArray = WeeklyNote.latest_note_array(session[:facility])
     # Passing in array to WeeklyNote is a SQL IN clause (for latest notes)
     latestNote = WeeklyNote.where(id: latestNoteArray)
 

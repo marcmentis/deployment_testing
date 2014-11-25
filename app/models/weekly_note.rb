@@ -1,11 +1,12 @@
 class WeeklyNote < ActiveRecord::Base
 	belongs_to :patient
 
-	def self.latest_note_array
+	def self.latest_note_array(facility)
 		# Get latest note for each patient
 		# latestNoteRelation = WeeklyNote.group(:pat_id)
   #                                      .having(WeeklyNote.maximum(:meeting_date))
 
+  		# GETS RELATION FOR LATEST NOTES ACROSS ALL FACILITIES
         # latestNoteRelation = WeeklyNote.find_by_sql("SELECT * 
         # 											FROM weekly_notes w1 
         # 	                                        WHERE w1.meeting_date IN (SELECT max(w2.meeting_date) max_meeting_date 
@@ -13,12 +14,13 @@ class WeeklyNote < ActiveRecord::Base
         # 	                                        	WHERE w2.patient_id = w1.patient_id 
         # 	                                        	GROUP BY w2.patient_id) ")
 
+		# GETS RELATION FOR LATEST NOTES AT GIVEN FACIITY
        latestNoteRelation = WeeklyNote.find_by_sql("SELECT * 
         											FROM weekly_notes w1 
         	                                        WHERE w1.meeting_date IN (SELECT max(w2.meeting_date) max_meeting_date 
         	                                        	FROM weekly_notes w2, patients p1
         	                                        	WHERE w2.patient_id = p1.id 
-        	                                        	AND p1.facility = '0036'
+        	                                        	AND p1.facility = '"+facility+"'
         	                                        	AND w2.patient_id = w1.patient_id 
         	                                        	GROUP BY w2.patient_id) ")
 
