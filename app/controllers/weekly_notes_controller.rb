@@ -4,6 +4,8 @@ class WeeklyNotesController < ApplicationController
   before_action :set_new_for_authorize, only: [:presentation, :meetings, :new_with_pat]
   after_action :verify_authorized
 
+# WEEKLY NOTE
+
   # GET/POST /weekly_notes/presentation(.:format) 
     # From Navigation WeeklyClinical _header.html.erb, presentation.html.erb 
   def presentation
@@ -100,7 +102,7 @@ class WeeklyNotesController < ApplicationController
   # POST /weekly_notes.json
   def create
    @weekly_note = WeeklyNote.new(weekly_note_params)
-# byebug
+    # byebug
     authorize @weekly_note
     respond_to do |format|
       if @weekly_note.save
@@ -142,6 +144,39 @@ class WeeklyNotesController < ApplicationController
     end
   end
 
+
+
+
+# MEETING TRACKER
+
+    # GET weekly_notes/meetingtracker(.:format)
+    # From Navigation Meeting Tracker,  _header.html.erb, meetingtracker.html.erb
+  def meetingtracker
+    # byebug
+    latestNoteArray = WeeklyNote.latest_note_array
+    # Passing in array to WeeklyNote is a SQL IN clause (for latest notes)
+    latestNote = WeeklyNote.where(id: latestNoteArray)
+
+
+    @q = latestNote.search(params[:q])
+    @weeklyNotes = @q.result.includes(:patient).page(params[:page]).per(15)
+
+    @totNumber = latestNote.all.count
+    @searchNumber = @q.result.all.count
+
+    # Generate the 2d array needed for grouped select in view
+    @grouped_options = ForSelect.GroupedSelect(session[:facility], 'ward', ForSelect)
+    @drug_collection = ForSelect.CollectionForSelect('9999','drugs_changed', ForSelect)
+
+    authorize @weeklyNotes
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
+  end
+
+
+# EITHER
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_weekly_note

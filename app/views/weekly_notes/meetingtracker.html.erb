@@ -1,0 +1,135 @@
+<div class="row">
+	<div class="large-5 columns large-centered alignCenterNoPadding"><h5>Ward Weekly Clinical Note Tracker</h5></div>
+</div>
+<div id="divFilterandTable">
+	<div class="row">
+		<div class="large-12 columns large-centered panel radius">
+			<div class="row">
+				<div class=" large-11 columns large-centered panel callout radius">
+					<%#= search_form_for @q, url: meetingtrackertable_weekly_notes_path, method: :get, remote: :true do |f| %>
+					<%= search_form_for @q, url: meetingtracker_weekly_notes_path, id: 'fWeeklyFilter', remote: :true do |f| %>
+					<div class="row collapse">
+						<div class="small-2 columns hide" >
+				            <div class="small-2 columns">
+				                <%= f.submit class: 'button tiny radius' %>  
+				              </div>
+				        </div>
+				        <div class="small-1 columns">
+				         	<%= f.label(:patient_ward_eq, 'Ward:', class: "right inline") %>
+				        </div>
+				        <div class="small-2 left columns">
+				         	<%= f.select(:patient_ward_eq, grouped_options_for_select(@grouped_options), prompt: 'Choose...') %>
+				        </div>
+				        <div class="small-1 columns">
+				         	<%= f.label(:danger_yn_eq, 'Danger:', class: "right inline") %>
+				        </div>
+				        <div class="small-1 left columns">
+				         	<%= f.search_field(:danger_yn_eq) %>
+				        </div>
+				        <div class="small-2 columns">
+				         	<%= f.label(:meeting_date_gteq, 'Meeting After:', class: "right inline") %>
+				        </div>
+				        <div class="small-2 left columns">
+				         	<%= f.date_field(:meeting_date_gteq) %>
+				        </div>
+				        <div class="small-1 columns">
+				         	<%= f.label(:meeting_date_lteq, 'Before:', class: "right inline") %>
+				        </div>
+				        <div class="small-2 left columns">
+				         	<%= f.date_field(:meeting_date_lteq) %>
+				        </div>
+
+
+				        <div class="small-3 columns hide ">
+				         	
+				         	pre-date<%= f.date_field(:pre_date_cont) %>			         	
+				         </div>
+
+					</div>
+					<div class="row collapse">
+						<div class="small-1 columns">
+				         	<%= f.label(:patient_lastname_eq, 'LastName:', class: "right inline") %>
+				         </div>
+				         <div class="small-2 left columns">
+				         	<%= f.search_field(:patient_lastname_eq) %>
+				         </div>
+				         <div class="small-1 columns">
+				         	<%= f.label(:pre_date_yesno_cont, 'PreDate:', class: "right inline") %>
+				         </div>
+				         <div class="small-1 left columns">
+				         	<%= f.search_field(:pre_date_yesno_cont) %>
+				         </div>
+				        <div class="small-2 columns">
+				         	<%= f.label(:pre_date_gteq, 'PRE After:', class: "right inline") %>
+				        </div>
+				        <div class="small-2 left columns">
+				         	<%= f.date_field(:pre_date_gteq) %>
+				        </div>
+				        <div class="small-1 columns">
+				         	<%= f.label(:pre_date_lteq, 'Before:', class: "right inline") %>
+				        </div>
+				        <div class="small-2 left columns">
+				         	<%= f.date_field(:pre_date_lteq) %>
+				        </div>
+				         
+					</div>
+
+
+					<div class="row collapse">
+						<div class="small-1 columns">
+				         	<%= f.label(:patient_number_start, 'Number:', class: "right inline") %>
+				        </div>
+				        <div class="small-1 left columns">
+				         	<%= f.search_field(:patient_number_start) %>
+				        </div>
+				        <div class="small-1 columns">
+				         	<%= f.label(:drugs_last_changed_eq, 'Drugs:', class: "right inline") %>
+				        </div>
+				        <div class="small-2 left columns">
+				         	<%= f.select(:drugs_last_changed_eq, options_from_collection_for_select(@drug_collection, :value, :text), prompt: '
+				         	 Changed..') %>
+				        </div>
+				        <div class="small-2 columns">
+				         	<%= f.label(:patient_doa_gteq, 'DOA After:', class: "right inline") %>
+				        </div>
+				        <div class="small-2 left columns">
+				         	<%= f.date_field(:patient_doa_gteq) %>
+				        </div>
+				        <div class="small-1 columns">
+				         	<%= f.label(:patient_doa_lteq, 'Before:', class: "right inline") %>
+				        </div>
+				        <div class="small-2 left columns">
+				         	<%= f.date_field(:patient_doa_lteq) %>
+				        </div>
+					</div>
+					<% end %>			
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-11 columns large-centered" id="divMeetingTable">
+					<%= render('meetingtrackertable') %>
+				</div>	
+				<div class="hide">
+					<%= form_tag({controller: "weekly_notes", action: "tracker_patnotes"}, method: "get", id: "fForPatNotes", remote: true) do %>
+						<%= text_field_tag(:id) %>
+					<% end %>
+				</div>							
+			</div>
+			
+				
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-6 columns">
+		<div id="divTrackerPatNotes"  class="panel radius">
+			<strong>Past Notes</strong>
+		</div>
+	</div>
+	<div class="large-6 columns">
+		<div class="panel radius">
+			Right Output
+		</div>
+	</div>
+</div>
