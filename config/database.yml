@@ -1,3 +1,4 @@
+
 development:
   adapter: <%= CONFIG[:adapter] %>
   database: <%= CONFIG[:database] %>
