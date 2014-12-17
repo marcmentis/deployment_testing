@@ -23,7 +23,7 @@ decipher.decrypt
 decipher.key = key
 decipher.iv = iv
 # Decode enc_application.yml file into temporary application.yml file
-File.open(File.expand_path('../application.yml', __FILE__), 'w') do |dec|
+File.open(File.expand_path('../application.yml', __FILE__), 'w:UTF-8') do |dec|
     File.open(File.expand_path('../enc_application.yml', __FILE__)) do |f|
         loop do
             r = f.read(4096)
