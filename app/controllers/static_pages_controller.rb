@@ -40,6 +40,23 @@ class StaticPagesController < ApplicationController
 
       @for_select = ForSelect.where('value = ?', session[:facility]).first
       session[:facilityname] = @for_select.text
-    end 	
+    end 
+
+  # Display browser_error message if browser not chrome
+  # unless @request.headers["HTTP_USER_AGENT"].downcase.include? "chrome"
+  #   render :file => "#{Rails.root}/public/browser_error", :layout => false
+  # end    
+  
+  # Raise exception if browser not chrome
+    # InvalideBrowserException is in /lib/exceptions/exception.rb
+    # /lib has been added to config.autoload_paths in /config/application.rb
+  begin
+    raise InvalidBrowserException unless @request.headers["HTTP_USER_AGENT"].downcase.include? "chrome"
+    rescue InvalidBrowserException
+      render file: "#{Rails.root}/public/browser_error", layout: false
+  end
+    
+
+    
   end
 end
