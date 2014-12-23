@@ -1,0 +1,2 @@
+class InvalidBrowserException < Exception
+end

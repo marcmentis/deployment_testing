@@ -12,19 +12,23 @@ require "openssl" # for decryption
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+# Add the lib folder to autoloaded paths (default is all under app)
+    # To include exceptions file
+config.autoload_paths += %W(#{Rails.root/lib})
+
 # Decode enc_application.yml into temp application.yml
     # "key" and "iv" used to create enc_application.yml file
-key = "\x8D\xEBc\x99Hw\rH\xE3\xACa\xAF\xDE4lnm\x9D!s\xEB\xB0\x96\xBF\xA8\xCC\x84\x87s\xBC\xDB\x8E"
-iv = "!\x1EMjNp\xC6c\xDD\xDC[\xCE\xB6\x18\xD5\xFC"
-alg = "AES-256-CBC"
+key = '\x8D\xEBc\x99Hw\rH\xE3\xACa\xAF\xDE4lnm\x9D!s\xEB\xB0\x96\xBF\xA8\xCC\x84\x87s\xBC\xDB\x8E'
+iv = '!\x1EMjNp\xC6c\xDD\xDC[\xCE\xB6\x18\xD5\xFC'
+alg = 'AES-256-CBC'
 # Create decipher instance with "alg" characteristics
 decipher = OpenSSL::Cipher.new(alg)
 decipher.decrypt
 decipher.key = key
 decipher.iv = iv
 # Decode enc_application.yml file into temporary application.yml file
-File.open(File.expand_path('../application.yml', __FILE__), 'w:UTF-8') do |dec|
-    File.open(File.expand_path('../enc_application.yml', __FILE__)) do |f|
+File.open(File.expand_path('../application.yml', __FILE__), 'wb') do |dec|
+    File.open(File.expand_path('../enc_application.yml', __FILE__), 'rb') do |f|
         loop do
             r = f.read(4096)
             break unless r
