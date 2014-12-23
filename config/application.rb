@@ -12,9 +12,6 @@ require "openssl" # for decryption
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-# Add the lib folder to autoloaded paths (default is all under app)
-    # To include exceptions file
-config.autoload_paths += %W(#{Rails.root/lib})
 
 # Decode enc_application.yml into temp application.yml
     # "key" and "iv" used to create enc_application.yml file

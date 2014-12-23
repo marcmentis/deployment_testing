@@ -48,11 +48,9 @@ class StaticPagesController < ApplicationController
   # end    
   
   # Raise exception if browser not chrome
-    # InvalideBrowserException is in /lib/exceptions/exception.rb
-    # /lib has been added to config.autoload_paths in /config/application.rb
   begin
-    raise InvalidBrowserException unless @request.headers["HTTP_USER_AGENT"].downcase.include? "chrome"
-    rescue InvalidBrowserException
+    raise RuntimeError unless @request.headers["HTTP_USER_AGENT"].downcase.include? "chrome"
+    rescue RuntimeError
       render file: "#{Rails.root}/public/browser_error", layout: false
   end
     
