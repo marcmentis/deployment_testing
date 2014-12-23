@@ -71,8 +71,10 @@ ForSelect.create!(facility: '0013', code: 'ward', value: '25/4N', text: '25/4N',
 ForSelect.create!(facility: '0013', code: 'ward', value: '25/4S', text: '25/4S', option_order: 27, grouper: 'bld25')
 ForSelect.create!(facility: '0013', code: 'ward', value: '25/5N', text: '25/5N', option_order: 28, grouper: 'bld25')
 ForSelect.create!(facility: '0013', code: 'ward', value: '25/5S', text: '25/5S', option_order: 29, grouper: 'bld25')
-ForSelect.create!(facility: '0013', code: 'ward', value: 'd/c', text: 'd/c', option_order: 12, grouper: 'd/c')
+ForSelect.create!(facility: '0013', code: 'ward', value: 'd/c', text: 'd/c', option_order: 30, grouper: 'd/c')
 
+# User make sure pgmdmjm in database
+User.create!(firstname: 'Marc', lastname: 'Mentis', authen: 'pgmdmjm', facility: '0013', role: 'admin2', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
 
 
 
