@@ -1,2 +1,0 @@
-class InvalidBrowserException < Exception
-end
