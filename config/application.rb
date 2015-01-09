@@ -12,40 +12,48 @@ require "openssl" # for decryption
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+# Get CONFIG variables differentially in dev/test and production environments
+if Rails.env == 'development' || Rails.env == 'test'
+    # Create CONFIG[:foo] constants from application.yml file
+        CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
+        CONFIG.merge! CONFIG.fetch(Rails.env, {})
+        CONFIG.symbolize_keys!
 
-# Decode enc_application.yml into temp application.yml
-    # "key" and "iv" used to create enc_application.yml file
-key = '\x8D\xEBc\x99Hw\rH\xE3\xACa\xAF\xDE4lnm\x9D!s\xEB\xB0\x96\xBF\xA8\xCC\x84\x87s\xBC\xDB\x8E'
-iv = '!\x1EMjNp\xC6c\xDD\xDC[\xCE\xB6\x18\xD5\xFC'
-alg = 'AES-256-CBC'
-# Create decipher instance with "alg" characteristics
-decipher = OpenSSL::Cipher.new(alg)
-decipher.decrypt
-decipher.key = key
-decipher.iv = iv
-# Decode enc_application.yml file into temporary application.yml file
-File.open(File.expand_path('../application.yml', __FILE__), 'wb') do |dec|
-    File.open(File.expand_path('../enc_application.yml', __FILE__), 'rb') do |f|
-        loop do
-            r = f.read(4096)
-            break unless r
-            decoded = decipher.update(r)
-            dec << decoded
+elsif Rails.env == 'production'
+    # Decode enc_application.yml into temp application.yml
+            # "key" and "iv" used to create enc_application.yml file
+        key = '\x8D\xEBc\x99Hw\rH\xE3\xACa\xAF\xDE4lnm\x9D!s\xEB\xB0\x96\xBF\xA8\xCC\x84\x87s\xBC\xDB\x8E'
+        iv = '!\x1EMjNp\xC6c\xDD\xDC[\xCE\xB6\x18\xD5\xFC'
+        alg = 'AES-256-CBC'
+        # Create decipher instance with "alg" characteristics
+        decipher = OpenSSL::Cipher.new(alg)
+        decipher.decrypt
+        decipher.key = key
+        decipher.iv = iv
+    # Decode enc_application.yml file into temporary application.yml file
+        File.open(File.expand_path('../application2.yml', __FILE__), 'wb') do |dec|
+            File.open(File.expand_path('../enc_application.yml', __FILE__), 'rb') do |f|
+                loop do
+                    r = f.read(4096)
+                    break unless r
+                    decoded = decipher.update(r)
+                    dec << decoded
+                end
+            end
+
+            dec << decipher.final
         end
-    end
 
-    dec << decipher.final
+    # Create CONFIG[:foo] constants from application.yml file
+        CONFIG = YAML.load(File.read(File.expand_path('../application2.yml', __FILE__)))
+        CONFIG.merge! CONFIG.fetch(Rails.env, {})
+        CONFIG.symbolize_keys!
+
+    # Delete the temporary application.yml file
+        File.delete(File.expand_path('../application2.yml', __FILE__))
+    
 end
 
-
-
-# Create CONFIG[:foo] constants from application.yml file
-CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
-CONFIG.merge! CONFIG.fetch(Rails.env, {})
-CONFIG.symbolize_keys!
-
-# Delete the temporary application.yml file
-File.delete(File.expand_path('../application.yml', __FILE__))
 
 module Startup4002
   class Application < Rails::Application
