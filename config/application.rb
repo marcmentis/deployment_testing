@@ -13,13 +13,15 @@ require "openssl" # for decryption
 Bundler.require(:default, Rails.env)
 
 # Get CONFIG variables differentially in dev/test and production environments
+# if Rails.env == 'test'
 if Rails.env == 'development' || Rails.env == 'test'
     # Create CONFIG[:foo] constants from application.yml file
         CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
         CONFIG.merge! CONFIG.fetch(Rails.env, {})
         CONFIG.symbolize_keys!
 
-elsif Rails.env == 'production'
+# elsif Rails.env == 'development' || Rails.env == 'production'
+elsif Rails.env == 'production' 
     # Decode enc_application.yml into temp application.yml
             # "key" and "iv" used to create enc_application.yml file
         key = '\x8D\xEBc\x99Hw\rH\xE3\xACa\xAF\xDE4lnm\x9D!s\xEB\xB0\x96\xBF\xA8\xCC\x84\x87s\xBC\xDB\x8E'
