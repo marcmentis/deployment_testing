@@ -24,8 +24,6 @@ production:
   username: <%= CONFIG[:username] %>
   password: <%= CONFIG[:password] %>
 
-  pool: 5
-  timeout: 5000
 
 # For Legacy Database
 production_sec:
