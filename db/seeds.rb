@@ -75,6 +75,7 @@ ForSelect.create!(facility: '0013', code: 'ward', value: 'd/c', text: 'd/c', opt
 
 # User make sure pgmdmjm in database
 User.create!(firstname: 'Marc', lastname: 'Mentis', authen: 'pgmdmjm', facility: '0013', role: 'admin2', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
+User.create!(firstname: 'Marc', lastname: 'Mentis', authen: 'mmentis', facility: '0013', role: 'admin2', email: 'marc.mentis@omh.ny.gov', firstinitial: 'M', middleinitial: 'J')
 
 
 
