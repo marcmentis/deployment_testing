@@ -33,16 +33,16 @@ gem 'rails', '4.0.2'
 		gem 'factory_girl_rails', '4.2.0'  #Factory to generate data
 	end
 
-	# group :production do
-	#   gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
-	#   gem 'ruby-oci8', '~> 2.1.0'
-	#   # gem 'faker'
-	# end
-
 	group :production do
-	  gem 'sqlite3'
+	  gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+	  gem 'ruby-oci8', '~> 2.1.0'
 	  gem 'faker'
 	end
+
+	# group :production do
+	#   gem 'sqlite3'
+	#   gem 'faker'
+	# end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
