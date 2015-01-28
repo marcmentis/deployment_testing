@@ -19,10 +19,16 @@ test:
   timeout: 5000 
 
 production: 
-  adapter: <%= CONFIG[:adapter] %>
-  database: <%= CONFIG[:database] %>
-  username: <%= CONFIG[:username] %>
-  password: <%= CONFIG[:password] %>
+  adapter: <%= CONFIG[:adapter_sqlite3] %>
+  database: <%= CONFIG[:database_sqlite3] %>
+  pool: <%= CONFIG[:pool_sqlite3] %>
+  timeout: <%= CONFIG[:timeout_sqlite3] %>
+
+
+  # adapter: <%= CONFIG[:adapter] %>
+  # database: <%= CONFIG[:database] %>
+  # username: <%= CONFIG[:username] %>
+  # password: <%= CONFIG[:password] %>
 
 
 # For Legacy Database
